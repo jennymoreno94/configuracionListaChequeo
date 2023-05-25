@@ -1,4 +1,4 @@
-import { Button, Card, CardContent, FormControlLabel, Grid, Switch, TextField, Typography } from "@mui/material";
+import { Button, Card, CardContent, FormControlLabel, Grid, Switch, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Opcion from "./Opcion";
 import Preguntas from "./Preguntas";
@@ -8,42 +8,76 @@ interface FormularioProps {
   // Propiedades del componente
 }
 
-
 interface Respuesta {
   id: number;
   pregunta: string;
   respuesta: string;
 }
 
+
 const SeleccionUnica: React.FC<FormularioProps> = () => {
 
   const [multipleRespuestas, setMultiplesRespuestas] = React.useState(false);
   const [otraOpcion, setOtraOpcion] = React.useState(false);
-
-  const [componentesOpcion, setComponentesOpcion] = useState<React.ReactNode[]>([<Opcion esMultipleRespuesta={multipleRespuestas}esOtraOpcion={otraOpcion} />]);
+  const [otraOpcionEliminada, setOtraOpcionEliminada] = useState(false);
+  const [visualizarComponente, setVisualizarComponente] = useState(true);
+  const [componentesOpcion, setComponentesOpcion] = useState<React.ReactNode[]>([<Opcion esMultipleRespuesta={multipleRespuestas} esOtraOpcion={otraOpcion}
+    eliminar={() => eliminarComponenteOpcion(false, 0)}
+    visualizarComponente={visualizarComponente} />]);
 
   useEffect(() => {
     setComponentesOpcion(prevComponentes => {
-      return prevComponentes.map(item => {
-        return <Opcion esMultipleRespuesta={multipleRespuestas}
-        esOtraOpcion={otraOpcion} />
+      return prevComponentes.map((item, index) => {
+        if (React.isValidElement(item)) {
+          return <Opcion esMultipleRespuesta={multipleRespuestas}
+            esOtraOpcion={item.props.esOtraOpcion}
+            eliminar={eliminarComponenteOpcion}
+            visualizarComponente={item.props.visualizarComponente}/>
+        }
       });
     });
   }, [multipleRespuestas])
+
+
+
+  const eliminarComponenteOpcion = (esOtraOpcion: boolean, indice: number) => {
+    const lista = componentesOpcion;
+    setVisualizarComponente(false)
+    setComponentesOpcion(prevComponentes => {
+      const nuevosComponentes = [...prevComponentes];
+      nuevosComponentes.splice(indice, 1);
+      if (esOtraOpcion) {
+        setOtraOpcionEliminada(false);
+      }
+      return nuevosComponentes;
+    });
+  };
+
 
   const agregarMultipleRespuestas = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMultiplesRespuestas(event.target.checked);
   };
 
-  
-  const agregarComponenteOpcion = (esOtraOpcion:boolean) => {
-    setOtraOpcion(esOtraOpcion);
-    setComponentesOpcion(prevComponentes => [...prevComponentes, <Opcion
-      esMultipleRespuesta={multipleRespuestas}
-      esOtraOpcion={esOtraOpcion}
-    />]);
-  };
+  const agregarComponenteOpcion = (esOtraOpcion: boolean,visualizarComponente:boolean) => {
+   
+    
+    debugger;
+    setComponentesOpcion(prevComponentes => [
+      ...prevComponentes,
+      <Opcion
+        esMultipleRespuesta={multipleRespuestas}
+        esOtraOpcion={esOtraOpcion}
+        eliminar={eliminarComponenteOpcion}
+        visualizarComponente={visualizarComponente}
+      />
+    ]);
+    if (esOtraOpcion) {
 
+      setOtraOpcionEliminada(true);
+    }
+    setOtraOpcion(esOtraOpcion)
+
+  };
 
 
   return (
@@ -60,7 +94,7 @@ const SeleccionUnica: React.FC<FormularioProps> = () => {
                   <Grid container alignItems="flex-start">
                     <Grid item xs={12} sm={6}>
                       <Button
-                        onClick={() => {agregarComponenteOpcion(false)}}
+                        onClick={() => { agregarComponenteOpcion(false,true) }}
                         color="secondary"
                         variant="contained"
                         size="medium"
@@ -69,8 +103,8 @@ const SeleccionUnica: React.FC<FormularioProps> = () => {
                       </Button>
 
                       <Button
-                        disabled={otraOpcion}
-                        onClick={() =>{agregarComponenteOpcion(true)}}
+                        disabled={otraOpcionEliminada}
+                        onClick={() => { agregarComponenteOpcion(true,true) }}
                         color="secondary"
                         variant="contained"
                         size="medium"
@@ -88,19 +122,19 @@ const SeleccionUnica: React.FC<FormularioProps> = () => {
                         style={{ marginLeft: '10px' }}
                       />
                     </Grid>
-
-
                   </Grid>
 
                   <Grid item xs={6} md={12} sm={6}>
                     <Grid container>
-                      {componentesOpcion.map(componente => componente)}
+                      {/* {componentesOpcion.map(componente => componente)}*/}
+
+                      {componentesOpcion.map((componente, index) => (
+                        React.isValidElement(componente) ?
+                          React.cloneElement(componente, { eliminar: () => eliminarComponenteOpcion(componente.props.esOtraOpcion, index) } as Partial<FormularioProps>) : null
+                      ))}
+
                     </Grid>
                   </Grid>
-
-
-
-
                 </Grid>
               </CardContent>
             </CardContent>

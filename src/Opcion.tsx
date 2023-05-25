@@ -1,30 +1,23 @@
-import { Button, Card, CardContent, Checkbox, Grid, Radio, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
-import Preguntas from "./Preguntas";
-
+import { Button, Checkbox, Grid, Radio, TextField } from "@mui/material";
+import React from "react";
 
 interface FormularioProps {
     esMultipleRespuesta: boolean
     esOtraOpcion: boolean
+    eliminar: (esOtraOpcion: boolean, indice: number) => void;
+    visualizarComponente:boolean
     // Propiedades del componente
 }
 
 
-interface Respuesta {
-    id: number;
-    pregunta: string;
-    respuesta: string;
-}
 
-const SeleccionUnica: React.FC<FormularioProps> = ({
+
+const Opcion: React.FC<FormularioProps> = ({
     esMultipleRespuesta,
-    esOtraOpcion
+    esOtraOpcion,
+    eliminar,
+    visualizarComponente
 }) => {
-
-    const [visualizarComponente, setVisualizarComponente] = useState(true);
-    const eliminar = () => {
-        setVisualizarComponente(false);
-    }
 
     return (
         <>
@@ -48,7 +41,7 @@ const SeleccionUnica: React.FC<FormularioProps> = ({
                                     style={{ marginLeft: '5px' }}
                                 /> :
                                 <TextField
-                                    disabled={esOtraOpcion}
+
                                     fullWidth
                                     required
                                     name="Sección"
@@ -59,7 +52,8 @@ const SeleccionUnica: React.FC<FormularioProps> = ({
                         </Grid>
                         <Grid item xs={2} sm={2}>
                             <Button
-                                onClick={eliminar}
+                                onClick={eliminar as () => void}
+                                
                                 color="secondary"
                                 variant="contained"
                                 size="medium"
@@ -70,12 +64,9 @@ const SeleccionUnica: React.FC<FormularioProps> = ({
                     </Grid>
                 </Grid>
             )}
-
-
-
         </>
 
     );
 };
 
-export default SeleccionUnica;
+export default Opcion;
