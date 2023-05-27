@@ -12,6 +12,7 @@ const SeleccionUnicaPrueba = () => {
   const [opciones, setOpciones] = useState<IOpcion[]>([{ id: 1, otraOpcion:false}]);
   const [multipleRespuestas, setMultiplesRespuestas] = React.useState(false);
   const [opcionNoAplica, setOpcionNoAplica] = React.useState(false);
+  const [respuestasObligatorias, setRespuestasObligatorias] = React.useState(false);
   const [otraOpcion, setOtraOpcion] = React.useState(false);
 
   const agregarOpcion = (otraOpcion:boolean) => {
@@ -53,6 +54,11 @@ const SeleccionUnicaPrueba = () => {
     setOpcionNoAplica(event.target.checked);
   };
 
+  
+  const agregarRespuestasObligatorias = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRespuestasObligatorias(event.target.checked);
+  };
+
   return (
     <>
       {/*<div>
@@ -78,7 +84,7 @@ const SeleccionUnicaPrueba = () => {
               <CardContent>
                 <Grid container spacing={2}  >
                   <Grid container alignItems="flex-start">
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={12}>
                       <Button
                         onClick={() => agregarOpcion(false)}
                         color="secondary"
@@ -115,6 +121,14 @@ const SeleccionUnicaPrueba = () => {
                         label="No Aplica"
                         style={{ marginLeft: '10px' }}
                       />
+                       { multipleRespuestas ? <FormControlLabel
+                        value="respuestas-obligatorias"
+                        control={<Switch
+                          onChange={agregarRespuestasObligatorias}
+                          color="primary" name="no-aplica" />}
+                        label="Respuestas Obligatorias"
+                        style={{ marginLeft: '10px' }}
+                      /> : null}
                 
                     </Grid>
                   </Grid>

@@ -1,5 +1,6 @@
-import { Autocomplete, AutocompleteChangeDetails, AutocompleteChangeReason, Button, Card, CardContent, FormControlLabel, Grid, Switch, TextField, Typography } from "@mui/material";
+import { Autocomplete, Button, Card, CardContent, FormControlLabel, Grid, Switch, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
+import Abierta from "./Abierta";
 import SeleccionUnica from "./SeleccionUnica";
 import SeleccionUnicaPrueba from "./SeleccionUnicaPrueba";
 
@@ -163,8 +164,7 @@ const Preguntas: React.FunctionComponent<FormularioProps> = () => {
                                             return (
                                                 
                                              <div>
-                                                    <label>Opción 1:</label>
-                                                    <input type="text" name="opcion1" />
+                                                    <Abierta/>
 
                                             </div>);
 
