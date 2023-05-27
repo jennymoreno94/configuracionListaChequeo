@@ -1,6 +1,7 @@
 import { Autocomplete, AutocompleteChangeDetails, AutocompleteChangeReason, Button, Card, CardContent, FormControlLabel, Grid, Switch, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import SeleccionUnica from "./SeleccionUnica";
+import SeleccionUnicaPrueba from "./SeleccionUnicaPrueba";
 
 
 const tipoPregunta = [
@@ -143,16 +144,17 @@ const Preguntas: React.FunctionComponent<FormularioProps> = () => {
                                     switch (map.id) {
                                         case 1:
                                             return (
-                                                <SeleccionUnica />
+                                                <div> {/*<SeleccionUnica />*/} </div>
                                             );
                                         case 2:
                                             return (
-                                                <div>
+                                                <SeleccionUnicaPrueba/>);
+                                               {/* <div>
                                                     <label>Opción 1:</label>
                                                     <input type="text" name="opcion1" />
 
-                                                </div>
-                                            );
+                                            </div>*;*/}
+                                             
                                         case 3:
                                             return (
                                                 <Grid item xs={8} sm={8}>
