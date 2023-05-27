@@ -9,11 +9,12 @@ interface IOpcion {
 }
 
 const SeleccionUnicaPrueba = () => {
-  const [opciones, setOpciones] = useState<IOpcion[]>([{ id: 0, otraOpcion:false}]);
+  const [opciones, setOpciones] = useState<IOpcion[]>([{ id: 1, otraOpcion:false}]);
   const [multipleRespuestas, setMultiplesRespuestas] = React.useState(false);
   const [otraOpcion, setOtraOpcion] = React.useState(false);
 
   const agregarOpcion = (otraOpcion:boolean) => {
+    debugger;
     const nuevoElemento = {
       id: opciones.length + 1,
       texto: ``,
@@ -21,9 +22,9 @@ const SeleccionUnicaPrueba = () => {
     };
     setOpciones([...opciones, nuevoElemento]);
 
-    const existeElemento = opciones.some((elemento) => elemento.otraOpcion === true);
+    const miOpcion = opciones.some((elemento) => elemento.otraOpcion === true);
 
-    if(existeElemento || otraOpcion) {
+    if(miOpcion || otraOpcion) {
       setOtraOpcion(true);
     }
    
@@ -31,11 +32,12 @@ const SeleccionUnicaPrueba = () => {
   };
 
   const eliminarElemento = (id: number) => {
+    debugger;
     const nuevosElementos = opciones.filter((elemento) => elemento.id !== id);
-    const existeElemento = nuevosElementos.some((elemento) => elemento.otraOpcion === true);
+    const isOtraOpcion = nuevosElementos.some((elemento) => elemento.otraOpcion === true);
     setOpciones(nuevosElementos);
 
-    if(existeElemento) {
+    if(isOtraOpcion) {
       setOtraOpcion(true);
     } else {
       setOtraOpcion(false);

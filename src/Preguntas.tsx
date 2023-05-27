@@ -6,7 +6,7 @@ import SeleccionUnicaPrueba from "./SeleccionUnicaPrueba";
 
 const tipoPregunta = [
     { tipo_pregunta: 'Selección', id: 1 },
-    { tipo_pregunta: 'Texto', id: 2 },
+    { tipo_pregunta: 'Abierta', id: 2 },
     { tipo_pregunta: 'Fecha', id: 3 },
 
 ];
@@ -57,6 +57,8 @@ const Preguntas: React.FunctionComponent<FormularioProps> = () => {
         value: Option[]) => {
         setSelectedOptions(value);
     };
+
+
 
     return (
         <>
@@ -137,8 +139,18 @@ const Preguntas: React.FunctionComponent<FormularioProps> = () => {
                                         )}
                                     />
                                 </Grid>
-                            </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <FormControlLabel
+                                        value="requerido"
+                                        control={<Switch
+                                            onChange={agregarRequerido}
+                                            color="primary" name="requerido" />}
+                                        label="Requerido"
+                                        style={{ marginLeft: '10px' }}
+                                    />
+                                </Grid>
 
+                            </Grid>
                             {
                                 selectedOptions.map(map => {
                                     switch (map.id) {
@@ -148,13 +160,13 @@ const Preguntas: React.FunctionComponent<FormularioProps> = () => {
                                             );
                                         case 2:
                                             return (
-                                                <SeleccionUnicaPrueba/>);
-                                               {/* <div>
+                                                <SeleccionUnicaPrueba />);
+                                            {/* <div>
                                                     <label>Opción 1:</label>
                                                     <input type="text" name="opcion1" />
 
                                             </div>*;*/}
-                                             
+
                                         case 3:
                                             return (
                                                 <Grid item xs={8} sm={8}>
