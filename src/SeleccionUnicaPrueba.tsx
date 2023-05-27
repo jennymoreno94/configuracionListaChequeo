@@ -11,6 +11,7 @@ interface IOpcion {
 const SeleccionUnicaPrueba = () => {
   const [opciones, setOpciones] = useState<IOpcion[]>([{ id: 1, otraOpcion:false}]);
   const [multipleRespuestas, setMultiplesRespuestas] = React.useState(false);
+  const [opcionNoAplica, setOpcionNoAplica] = React.useState(false);
   const [otraOpcion, setOtraOpcion] = React.useState(false);
 
   const agregarOpcion = (otraOpcion:boolean) => {
@@ -46,6 +47,10 @@ const SeleccionUnicaPrueba = () => {
 
   const agregarMultipleRespuestas = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMultiplesRespuestas(event.target.checked);
+  };
+
+  const agregarOpcionNoAplica = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setOpcionNoAplica(event.target.checked);
   };
 
   return (
@@ -102,6 +107,15 @@ const SeleccionUnicaPrueba = () => {
                         label="Multiple Respuestas"
                         style={{ marginLeft: '10px' }}
                       />
+                      <FormControlLabel
+                        value="no-aplica"
+                        control={<Switch
+                          onChange={agregarOpcionNoAplica}
+                          color="primary" name="no-aplica" />}
+                        label="No Aplica"
+                        style={{ marginLeft: '10px' }}
+                      />
+                
                     </Grid>
                   </Grid>
 

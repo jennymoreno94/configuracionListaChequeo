@@ -156,16 +156,17 @@ const Preguntas: React.FunctionComponent<FormularioProps> = () => {
                                     switch (map.id) {
                                         case 1:
                                             return (
-                                                <div> {/*<SeleccionUnica />*/} </div>
+                                                <div> <SeleccionUnicaPrueba />
+                                                     {/*<SeleccionUnica />*/} </div>
                                             );
                                         case 2:
                                             return (
-                                                <SeleccionUnicaPrueba />);
-                                            {/* <div>
+                                                
+                                             <div>
                                                     <label>Opción 1:</label>
                                                     <input type="text" name="opcion1" />
 
-                                            </div>*;*/}
+                                            </div>);
 
                                         case 3:
                                             return (
