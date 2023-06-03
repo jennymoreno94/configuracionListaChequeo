@@ -44,27 +44,6 @@ const ListaChequeoCV: FunctionComponent<IListaChequeoCVProps> = ({
 
     const [guardoFormulario, setGuardoFormulario] = useState<boolean>(false);
 
-    /*Sección*/
-   /* const [componentesSeccion, setComponentesSeccion] = useState<React.ReactNode[]>([
-        <SeccionListaChequeoVista agregarSeccion={() => ()} panel='panel1' eliminarSeccion={function (id: number): void {
-            throw new Error('Function not implemented.');
-        }} id={0} />
-    ]);*/
-
-    const [componentesSeccion, setComponentesSeccion] = useState<ISeccion[]>([{ id: 1, panel:'panel1'}]);
-
-    const agregarSeccion = () => {
-        
-        const idSeleccion = componentesSeccion.length + 1
-        const nuevoElemento = {
-          id:idSeleccion ,
-          panel:`panel${idSeleccion}`
-        
-        };
-        setComponentesSeccion([...componentesSeccion, nuevoElemento]);    
-    };
-
-
     const consultarEntidadesFormularioListaChequeo = () => {
         const tipos: ITipo[] | null = [{
             IdTipo: 1,
@@ -106,6 +85,31 @@ const ListaChequeoCV: FunctionComponent<IListaChequeoCVProps> = ({
     /*Seccion*/
 
 
+   /* const [componentesSeccion, setComponentesSeccion] = useState<React.ReactNode[]>([
+        <SeccionListaChequeoVista agregarSeccion={() => ()} panel='panel1' eliminarSeccion={function (id: number): void {
+            throw new Error('Function not implemented.');
+        }} id={0} />
+    ]);*/
+    const [expanded, setExpanded] = useState<string | false>('panel1');
+
+    const [componentesSeccion, setComponentesSeccion] = useState<ISeccion[]>([{ id: 1, panel:'panel1'}]);
+
+    const agregarSeccion = () => {
+        
+        const idSeleccion = componentesSeccion.length + 1
+        const nuevoElemento = {
+          id:idSeleccion ,
+          panel:`panel${idSeleccion}`
+        
+        };
+        setComponentesSeccion([...componentesSeccion, nuevoElemento]);    
+    };
+
+    const eliminarSeccion = (id: number) => {
+        const nuevosElementos = componentesSeccion.filter((elemento) => elemento.id !== id);
+        setComponentesSeccion(nuevosElementos);
+      };
+
     return (
         <>
             <FormularioListaChequeoVista
@@ -123,8 +127,10 @@ const ListaChequeoCV: FunctionComponent<IListaChequeoCVProps> = ({
                     key={elemento?.id}
                     id={elemento?.id}
                     agregarSeccion={agregarSeccion}
-                    eliminarSeccion={agregarSeccion} 
-                    panel={`panel${elemento?.id}`}                />
+                    eliminarSeccion={eliminarSeccion}
+                    panel={`panel${elemento?.id}`} 
+                    expanded={expanded} 
+                    setExpanded={setExpanded}                />
             )): null}
 
            {/*{guardoFormulario ? componentesSeccion.map(componente => componente) : null}*/}

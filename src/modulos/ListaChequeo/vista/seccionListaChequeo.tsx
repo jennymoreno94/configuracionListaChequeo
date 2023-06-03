@@ -8,6 +8,7 @@ import {
     Accordion,
     AccordionDetails,
     AccordionSummary,
+    AccordionActions,
     makeStyles,
 
 } from '@material-ui/core';
@@ -27,10 +28,14 @@ const useStyles = makeStyles((theme) => ({
 
 const SeccionListaChequeoVista: React.FunctionComponent<ISeccionListaChequeoProps> = ({
     agregarSeccion,
-    panel
+    eliminarSeccion,
+    panel,
+    expanded,
+    setExpanded,
+    id
 }) => {
     const classes = useStyles();
-    const [expanded, setExpanded] = useState<string | false>(panel);
+    //const [expanded, setExpanded] = useState<string | false>(panel);
 
     const handleChange = (panel: string) => (_: React.ChangeEvent<{}>, isExpanded: boolean) => {
         debugger;
@@ -41,55 +46,60 @@ const SeccionListaChequeoVista: React.FunctionComponent<ISeccionListaChequeoProp
 
         <div>
 
-            {/*<Grid container>
-                <Grid item xs={12} style={{ marginTop: '20px' }}>*/}
-            <Accordion expanded={expanded === panel} onChange={handleChange(panel)}>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />} className={classes.summary} aria-controls={`${panel}bh-content`} id={`${panel}bh-header`}>
-                    <Typography variant="h6">Sección</Typography>
-                    <Grid container justifyContent="flex-end" xs={12} sm={12} >
-                        <Button
-                            onClick={agregarSeccion}
-                            color="secondary"
-                            variant="contained"
-                            size="small"
-                        >
-                            Duplicar Seccion
-                        </Button>
-
-                    </Grid>
-
-                </AccordionSummary>
-
-                <AccordionDetails>
-                    <Grid container spacing={2} >
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                fullWidth
-                                required
-                                name="Sección"
-                                label="Sección"
-                                //onChange={handleTituloChange}
-                                variant="outlined"
-                            //value={titulo}
-                            />
-
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
+            <Grid container>
+                <Grid item xs={12} style={{ marginTop: '20px' }}>
+                    <Accordion expanded={expanded === panel} onChange={handleChange(panel)}>
+                        <AccordionSummary expandIcon={<ExpandMoreIcon />} className={classes.summary} aria-controls={`${panel}bh-content`} id={`${panel}bh-header`}>
+                            <Typography variant="h6">{`Sección ${panel}`}</Typography>
+                        </AccordionSummary>
+                        <AccordionActions>
                             <Button
-                                //onClick={agregarComponente}
+                                onClick={agregarSeccion}
                                 color="secondary"
                                 variant="contained"
-                                size="medium"
-
+                                size="small"
                             >
-                                Agregar Preguntas
+                                Duplicar Seccion
                             </Button>
+                            <Button
+                                 onClick={() => eliminarSeccion(id)}
+                                color="secondary"
+                                variant="contained"
+                                size="small"
+                            >
+                                Eliminar
+                            </Button>
+                        </AccordionActions>
+                        <AccordionDetails>
+                            <Grid container spacing={2} >
+                                <Grid item xs={12} sm={6}>
+                                    <TextField
+                                        fullWidth
+                                        required
+                                        name="Sección"
+                                        label="Sección"
+                                        //onChange={handleTituloChange}
+                                        variant="outlined"
+                                    //value={titulo}
+                                    />
 
-                        </Grid>
-                    </Grid>
-                </AccordionDetails>
-            </Accordion>
-            <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <Button
+                                        //onClick={agregarComponente}
+                                        color="secondary"
+                                        variant="contained"
+                                        size="medium"
+
+                                    >
+                                        Agregar Preguntas
+                                    </Button>
+
+                                </Grid>
+                            </Grid>
+                        </AccordionDetails>
+                    </Accordion>
+                    {/* <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />} className={classes.summary} aria-controls="panel1bh-content" id="panel1bh-header">
                     <Typography variant="h6">Sección</Typography>
                     <Grid container justifyContent="flex-end" xs={12} sm={12} >
@@ -134,9 +144,9 @@ const SeccionListaChequeoVista: React.FunctionComponent<ISeccionListaChequeoProp
                         </Grid>
                     </Grid>
                 </AccordionDetails>
-            </Accordion>
-            {/*    </Grid>
-            </Grid>*/}
+            </Accordion>*/}
+                </Grid>
+            </Grid>
 
 
 
