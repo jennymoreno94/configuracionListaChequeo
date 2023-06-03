@@ -1,4 +1,4 @@
-import { Button, Checkbox, Grid, Radio, TextField } from "@mui/material";
+import { Button, Checkbox, Grid, Radio, TextField } from "@material-ui/core";
 import React from "react";
 
 interface FormularioProps {

@@ -1,4 +1,4 @@
-import { Alert, Autocomplete, Button, Card, CardContent, Grid, TextField, Typography } from "@mui/material";
+/*import {Button, Card, CardContent, Grid, TextField, Typography } from "@material-ui/core";
 import React, { useState } from "react";
 import Preguntas from "./Preguntas";
 
@@ -209,39 +209,37 @@ const Formulario: React.FC<FormularioProps> = () => {
 
 
         </Grid>
-      </Grid>
-
-     {/* 
-      <div>
-        <label>Título:</label>
-        <input type="text" value={titulo} onChange={handleTituloChange} />
-
-        <label>Sección:</label>
-        <input type="text" value={seccion} onChange={handleSeccionChange} />
-
-        <label>Preguntas:</label>
-        <textarea value={preguntas} onChange={handlePreguntasChange} />
-
-        <label>Tipo de Respuesta:</label>
-        <select value={tipoRespuesta} onChange={handleTipoRespuestaChange}>
-          <option value="">Seleccionar</option>
-          <option value="seleccion-multiple">Selección Múltiple</option>
-          <option value="seleccion-unica">Selección Única</option>
-          <option value="campo-abierto">Campo Abierto Alfanumérico</option>
-        </select>
-
-        {renderRespuesta()}
-
-        <button onClick={guardarRespuestas}>Guardar Respuestas</button>
-
-        {renderRespuestas()}
-      </div>
-    */}
-      
-      
+      </Grid>  
     </>
 
   );
 };
 
-export default Formulario;
+export default Formulario;*/
+
+import React from 'react';
+import ListaChequeo from './modulos/ListaChequeo';
+import IDatos from './modelos/listaChequeo/entidades/IDatos';
+
+
+const datos: IDatos[] | null  = [{
+  Id: 1,
+  Descripcion: 'Lavadoras'
+},
+{
+  Id: 2,
+  Descripcion: 'Neveras'
+},
+{
+  Id: 2,
+  Descripcion: 'Estufas'
+}]
+
+const App = () => {
+
+
+  return <ListaChequeo idEmpresa={''} idAgencia={''} datosCodigo={datos} />;
+};
+
+export default App;
+

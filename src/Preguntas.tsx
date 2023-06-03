@@ -1,4 +1,4 @@
-import { Autocomplete, Button, Card, CardContent, FormControlLabel, Grid, Switch, TextField, Typography } from "@mui/material";
+import { /*Autocomplete,*/ Button, Card, CardContent, FormControlLabel, Grid, Switch, TextField, Typography } from "@material-ui/core";
 import React, { useState } from "react";
 import Abierta from "./Abierta";
 import SeleccionUnica from "./SeleccionUnica";
@@ -119,7 +119,7 @@ const Preguntas: React.FunctionComponent<FormularioProps> = () => {
                                 </Grid>
 
                                 <Grid item xs={12} sm={6}>
-                                    <Autocomplete
+                                    {/* <Autocomplete
                                         multiple
                                         onChange={(_, value) => {
                                             if (value.length > 2) {
@@ -138,7 +138,7 @@ const Preguntas: React.FunctionComponent<FormularioProps> = () => {
 
                                             />
                                         )}
-                                    />
+                                        />*/}
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
                                     <FormControlLabel
@@ -158,15 +158,15 @@ const Preguntas: React.FunctionComponent<FormularioProps> = () => {
                                         case 1:
                                             return (
                                                 <div> <SeleccionUnicaPrueba />
-                                                     {/*<SeleccionUnica />*/} </div>
+                                                    {/*<SeleccionUnica />*/} </div>
                                             );
                                         case 2:
                                             return (
-                                                
-                                             <div>
-                                                    <Abierta/>
 
-                                            </div>);
+                                                <div>
+                                                    <Abierta />
+
+                                                </div>);
 
                                         case 3:
                                             return (

@@ -1,4 +1,4 @@
-import { Button, Card, CardContent, FormControlLabel, Grid, Switch, Typography } from '@mui/material';
+import { Button, Card, CardContent, FormControlLabel, Grid, Switch, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import OpcionPrueba from './OpcionPrueba';
 
