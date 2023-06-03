@@ -38,7 +38,6 @@ const SeccionListaChequeoVista: React.FunctionComponent<ISeccionListaChequeoProp
     //const [expanded, setExpanded] = useState<string | false>(panel);
 
     const handleChange = (panel: string) => (_: React.ChangeEvent<{}>, isExpanded: boolean) => {
-        debugger;
         setExpanded(isExpanded ? panel : false);
     };
 

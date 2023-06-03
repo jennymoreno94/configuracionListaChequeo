@@ -20,8 +20,8 @@ const VALORES_INICIALES_INPUTS_FORMULARIO: IDatosFormulario = {
 
 interface ISeccion {
     id: number;
-    panel:string;
-  }
+    panel: string;
+}
 
 const ListaChequeoCV: FunctionComponent<IListaChequeoCVProps> = ({
     idEmpresa,
@@ -85,30 +85,42 @@ const ListaChequeoCV: FunctionComponent<IListaChequeoCVProps> = ({
     /*Seccion*/
 
 
-   /* const [componentesSeccion, setComponentesSeccion] = useState<React.ReactNode[]>([
-        <SeccionListaChequeoVista agregarSeccion={() => ()} panel='panel1' eliminarSeccion={function (id: number): void {
-            throw new Error('Function not implemented.');
-        }} id={0} />
-    ]);*/
+    /* const [componentesSeccion, setComponentesSeccion] = useState<React.ReactNode[]>([
+         <SeccionListaChequeoVista agregarSeccion={() => ()} panel='panel1' eliminarSeccion={function (id: number): void {
+             throw new Error('Function not implemented.');
+         }} id={0} />
+     ]);*/
     const [expanded, setExpanded] = useState<string | false>('panel1');
 
-    const [componentesSeccion, setComponentesSeccion] = useState<ISeccion[]>([{ id: 1, panel:'panel1'}]);
+    const [componentesSeccion, setComponentesSeccion] = useState<ISeccion[]>([{ id: 1, panel: 'panel1' }]);
 
     const agregarSeccion = () => {
-        
+
         const idSeleccion = componentesSeccion.length + 1
         const nuevoElemento = {
-          id:idSeleccion ,
-          panel:`panel${idSeleccion}`
-        
+            id: idSeleccion,
+            panel: `panel${idSeleccion}`
+
         };
-        setComponentesSeccion([...componentesSeccion, nuevoElemento]);    
+        setComponentesSeccion([...componentesSeccion, nuevoElemento]);
     };
 
     const eliminarSeccion = (id: number) => {
+        /*const nuevosElementos = componentesSeccion.filter((elemento) => elemento.id !== id);
+        setComponentesSeccion(nuevosElementos);*/
+
         const nuevosElementos = componentesSeccion.filter((elemento) => elemento.id !== id);
-        setComponentesSeccion(nuevosElementos);
-      };
+
+        // Actualizar los id de los elementos restantes
+        const elementosActualizados = nuevosElementos.map((elemento, index) => ({
+            ...elemento,
+            id: index + 1,
+            panel:`panel${index + 1}` // Asignar nuevo id basado en la posición en el arreglo
+        }));
+
+        debugger;
+        setComponentesSeccion(elementosActualizados);
+    };
 
     return (
         <>
@@ -128,12 +140,12 @@ const ListaChequeoCV: FunctionComponent<IListaChequeoCVProps> = ({
                     id={elemento?.id}
                     agregarSeccion={agregarSeccion}
                     eliminarSeccion={eliminarSeccion}
-                    panel={`panel${elemento?.id}`} 
-                    expanded={expanded} 
-                    setExpanded={setExpanded}                />
-            )): null}
+                    panel={`panel${elemento?.id}`}
+                    expanded={expanded}
+                    setExpanded={setExpanded} />
+            )) : null}
 
-           {/*{guardoFormulario ? componentesSeccion.map(componente => componente) : null}*/}
+            {/*{guardoFormulario ? componentesSeccion.map(componente => componente) : null}*/}
         </>
 
     );
