@@ -36,8 +36,10 @@ export interface ISeccionListaChequeoProps {
     eliminarSeccion: (id: number) => void;
     panel:string,
     id: number,
-    expanded:string | false,
-    setExpanded: React.Dispatch<React.SetStateAction<string | false>>;
+    expandido:string | false,
+    setExpandido: React.Dispatch<React.SetStateAction<string | false>>,
+    alCambiarSeccion: (event: React.ChangeEvent<HTMLInputElement>) => void,
+    valorSeccion:string
 }
 
 
