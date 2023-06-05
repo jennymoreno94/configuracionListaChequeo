@@ -31,6 +31,8 @@ export interface IFormularioListaChequeoProps {
 }
 
 
+
+
 export interface ISeccionListaChequeoProps {
     agregarSeccion:() => void,
     eliminarSeccion: (id: number) => void;
@@ -40,9 +42,18 @@ export interface ISeccionListaChequeoProps {
     setExpandido: React.Dispatch<React.SetStateAction<string | false>>,
     alCambiarSeccion: (event: React.ChangeEvent<HTMLInputElement>) => void,
     valorSeccion:string
+    agregarPregunta:() => void,
+    componentePregunta:IPregunta[]
 }
 
-
+export interface IPreguntaListaChequeoProps {
+    eliminarPregunta: (id: number) => void;
+    id: number,
+    
+    alCambiarPregunta: (event: React.ChangeEvent<HTMLInputElement>) => void,
+    valorPregunta:string
+    agregarPregunta:() => void,
+}
 
 
 /*Interfaces controlador vista*/
@@ -50,4 +61,21 @@ export interface IListaChequeoCVProps {
     idEmpresa: string;
     idAgencia: string;
     datosCodigo: IDatos[] | null;
+}
+
+export const VALORES_INICIALES_INPUTS_FORMULARIO: IDatosFormulario = {
+    Codigo: null,
+    Nombre: '',
+    Descripcion: '',
+    IdTipo: null,
+};
+
+
+export interface ISeccion {
+    id: number;
+    panel: string;
+}
+
+export interface IPregunta {
+    id: number;
 }

@@ -66,7 +66,6 @@ const FormularioListaChequeoVista: React.FunctionComponent<IFormularioListaChequ
                                             />
                                         )}
                                         onChange={(_: any, value: IDatos | null) => {
-                                            debugger;
                                             alCambiarCampo('Codigo', value ? value.Id : null)
                                         }}
                                     />

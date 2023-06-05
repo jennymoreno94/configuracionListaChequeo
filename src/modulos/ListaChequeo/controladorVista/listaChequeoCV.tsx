@@ -3,30 +3,19 @@ import React, { FunctionComponent, useEffect, useState } from 'react';
 
 
 
-import { IListaChequeoCVProps } from '../interfaces';
+import { IListaChequeoCVProps, IPregunta, ISeccion, VALORES_INICIALES_INPUTS_FORMULARIO } from '../interfaces';
 import FormularioListaChequeoVista from '../vista/formularioListaChequeo';
 import IDatosFormulario from '../../../modelos/listaChequeo/entidades/IDatosFormulario';
 import IDatos from '../../../modelos/listaChequeo/entidades/IDatos';
 import ITipo from '../../../modelos/listaChequeo/entidades/ITipo';
 import SeccionListaChequeoVista from '../vista/seccionListaChequeo';
+import PreguntaListaChequeoVista from '../vista/preguntaListaChequeo';
 
-const VALORES_INICIALES_INPUTS_FORMULARIO: IDatosFormulario = {
-    Codigo: null,
-    Nombre: '',
-    Descripcion: '',
-    IdTipo: null,
-};
-
-
-interface ISeccion {
-    id: number;
-    panel: string;
-}
 
 const ListaChequeoCV: FunctionComponent<IListaChequeoCVProps> = ({
     idEmpresa,
     idAgencia,
-    datosCodigo
+    datosCodigo,
 }) => {
 
     useEffect(() => {
@@ -37,6 +26,7 @@ const ListaChequeoCV: FunctionComponent<IListaChequeoCVProps> = ({
     const alCambiarCampo = (campo: keyof IDatosFormulario, nuevoValor: IDatosFormulario[keyof IDatosFormulario]) => {
         setListaChequeoFormulario((listaChequeo) => ({ ...listaChequeo, [campo]: nuevoValor }));
     };
+
     const [entidadesFormularioListaChequeo, setEntidadesFormularioListaChequeo] = useState<{ datosCodigo: IDatos[] | null; tipos: ITipo[] }>({
         datosCodigo: datosCodigo,
         tipos: [],
@@ -91,58 +81,53 @@ const ListaChequeoCV: FunctionComponent<IListaChequeoCVProps> = ({
          }} id={0} />
      ]);*/
     const [expandido, setExpandido] = useState<string | false>('panel1');
+    const [valorSeccion, setValorSeccion] = useState(``);
 
     const [componentesSeccion, setComponentesSeccion] = useState<ISeccion[]>([{ id: 1, panel: 'panel1' }]);
 
     const [contadorId, setContadorId] = useState(1);
-    const [valorSeccion, setValorSeccion] = useState(`panel`);
 
 
 
     const agregarSeccion = () => {
-
-        debugger;
-       /* const idSeleccion = componentesSeccion.length + 1
-        const nuevoElemento = {
-            id: idSeleccion,
-            panel: `panel${idSeleccion}`
-
-        };
-        setComponentesSeccion([...componentesSeccion, nuevoElemento]);*/
-
         const nuevoId = contadorId + 1;
         const nuevoElemento = {
-          id: nuevoId,
-          panel: `panel${nuevoId}`,
+            id: nuevoId,
+            panel: `panel${nuevoId}`,
         };
-      
+
         setComponentesSeccion([...componentesSeccion, nuevoElemento]);
         setContadorId(nuevoId);
     };
 
-    
-    const eliminarSeccion = (id: number) => {
-         const nuevosElementos = componentesSeccion.filter((elemento) => elemento.id !== id);
-         setComponentesSeccion(nuevosElementos);
 
-        /*  const nuevosElementos = componentesSeccion.filter((elemento) => elemento.id !== id);
-  
-          // Actualizar los id de los elementos restantes
-          const elementosActualizados = nuevosElementos.map((elemento, index) => ({
-              ...elemento,
-              id: index + 1,
-              panel:`panel${index + 1}`
-          }));
-  
-          debugger;
-          setComponentesSeccion(elementosActualizados);*/
+    const eliminarSeccion = (id: number) => {
+        const nuevosElementos = componentesSeccion.filter((elemento) => elemento.id !== id);
+        setComponentesSeccion(nuevosElementos);
     };
 
     const alCambiarSeccion = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValorSeccion(event.target.value);
     };
 
+    /*Pregunta*/
 
+    const [componentesAgregados, setComponentesAgregados] = useState<React.ReactNode[]>([]);
+
+    const [componentePregunta, setComponentePregunta] = useState<IPregunta[]>([]);
+    const [contadorPreguntaId, setContadorPreguntaId] = useState(1);
+
+    
+    const agregarPregunta = () => {
+    
+        const nuevoId = contadorPreguntaId + 1;
+        const nuevoElemento = {
+            id: nuevoId
+        };
+
+        setComponentePregunta([...componentePregunta, nuevoElemento]);
+        setContadorPreguntaId(nuevoId);
+    };
 
     return (
         <>
@@ -166,10 +151,11 @@ const ListaChequeoCV: FunctionComponent<IListaChequeoCVProps> = ({
                     expandido={expandido}
                     setExpandido={setExpandido}
                     alCambiarSeccion={alCambiarSeccion}
-                    valorSeccion={`${valorSeccion}${elemento?.id}`} />
+                    valorSeccion={valorSeccion}
+                    agregarPregunta={agregarPregunta}
+                    componentePregunta={componentePregunta} />
             )) : null}
 
-            {/*{guardoFormulario ? componentesSeccion.map(componente => componente) : null}*/}
         </>
 
     );
